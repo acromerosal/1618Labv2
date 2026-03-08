@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Oswald:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Oswald", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-serif: "Cormorant Garamond", serif;
+  --color-gold: #D4AF37;
+  --color-gold-dim: #AA8C2C;
+  --color-dark: #050505;
+  --color-cyan-accent: #00FFFF;
+}
+
+/* Hack Mode Global Overrides */
+.hack-theme {
+  --color-gold: #00FFFF;
+  --color-gold-dim: #00CCCC;
+}
+
+.hack-theme .text-gold {
+  color: var(--color-cyan-accent) !important;
+  text-shadow: none;
+}
+
+.hack-theme .border-gold {
+  border-color: rgba(0, 255, 255, 0.3) !important;
+  box-shadow: none;
+}
+
+.hack-theme .bg-gold {
+  background-color: rgba(0, 255, 255, 0.05) !important;
+  border: 1px solid rgba(0, 255, 255, 0.2) !important;
+  color: var(--color-cyan-accent) !important;
+}
+
+@layer base {
+  body {
+    @apply bg-dark text-white font-sans overflow-x-hidden;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  }
+  
+  .glitch-text {
+    position: relative;
+  }
+  
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .glitch-text::before {
+    left: 2px;
+    text-shadow: -1px 0 #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 12s infinite linear alternate-reverse;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .glitch-text::after {
+    left: -2px;
+    text-shadow: -1px 0 #00fff9;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 12s infinite linear alternate-reverse;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .glitch-text:hover::before,
+  .glitch-text:hover::after {
+    opacity: 0.3;
+  }
+
+  /* Intermittent "ghost" glitch */
+  @keyframes ghost-glitch {
+    0%, 90%, 100% { opacity: 0; }
+    92%, 95% { opacity: 0.2; }
+  }
+
+  .glitch-text::before {
+    animation: glitch-anim 12s infinite linear alternate-reverse, ghost-glitch 20s infinite;
+  }
+
+  .scanlines {
+    background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,0),
+      rgba(255,255,255,0) 50%,
+      rgba(0,0,0,0.2) 50%,
+      rgba(0,0,0,0.2)
+    );
+    background-size: 100% 4px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  /* Custom Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 0;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  .scrollbar-cyan::-webkit-scrollbar-thumb {
+    background: #00FFFF;
+    box-shadow: 0 0 5px #00FFFF;
+  }
+
+  .scrollbar-gold::-webkit-scrollbar-thumb {
+    background: #D4AF37;
+    box-shadow: 0 0 5px #D4AF37;
+  }
+
+  /* Occult Utilities */
+  .border-engraved {
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    position: relative;
+  }
+
+  .border-engraved::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    pointer-events: none;
+  }
+
+  .text-mystic {
+    @apply font-serif italic tracking-wider;
+    text-transform: none;
+  }
+
+  .bg-parchment-dark {
+    background-color: #0a0a0a;
+    background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+  }
+
+  .mask-engraving {
+    mask-image: linear-gradient(to bottom, black, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Global Scrollbar Override */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.4);
+}
+
+/* Hack Mode Scrollbar */
+.hack-theme ::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 255, 0.2);
+  border: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+.hack-theme ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 255, 0.4);
+}
+
+@keyframes glitch-anim {
+  0%, 100% { clip: rect(0, 0, 0, 0); opacity: 0; }
+  10%, 15% { clip: rect(38px, 9999px, 81px, 0); opacity: 1; }
+  16%, 30% { clip: rect(0, 0, 0, 0); opacity: 0; }
+  31%, 35% { clip: rect(6px, 9999px, 14px, 0); opacity: 1; }
+  36%, 50% { clip: rect(0, 0, 0, 0); opacity: 0; }
+  51%, 55% { clip: rect(56px, 9999px, 2px, 0); opacity: 1; }
+  56%, 70% { clip: rect(0, 0, 0, 0); opacity: 0; }
+  71%, 75% { clip: rect(12px, 9999px, 68px, 0); opacity: 1; }
+  76%, 90% { clip: rect(0, 0, 0, 0); opacity: 0; }
+  91%, 95% { clip: rect(84px, 9999px, 73px, 0); opacity: 1; }
+}
+
+@keyframes glitch-anim2 {
+  0%, 100% { clip: rect(0, 0, 0, 0); opacity: 0; }
+  5%, 10% { clip: rect(15px, 9999px, 61px, 0); opacity: 1; }
+  11%, 25% { clip: rect(0, 0, 0, 0); opacity: 0; }
+  26%, 30% { clip: rect(82px, 9999px, 34px, 0); opacity: 1; }
+  31%, 45% { clip: rect(0, 0, 0, 0); opacity: 0; }
+  46%, 50% { clip: rect(2px, 9999px, 85px, 0); opacity: 1; }
+  51%, 65% { clip: rect(0, 0, 0, 0); opacity: 0; }
+  66%, 70% { clip: rect(43px, 9999px, 11px, 0); opacity: 1; }
+  71%, 85% { clip: rect(0, 0, 0, 0); opacity: 0; }
+  86%, 90% { clip: rect(67px, 9999px, 92px, 0); opacity: 1; }
+}
